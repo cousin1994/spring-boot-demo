@@ -1,7 +1,11 @@
 package com.cousin.springboot;
 
+import com.cousin.springboot.base.servlet.MyServlet1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 启动类
@@ -10,7 +14,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Created 2016/11/27 3:05
  */
 @SpringBootApplication
+@ServletComponentScan
 public class App {
+
+    /**
+     * 注册Servlet.不需要添加注解：@ServletComponentScan
+     * @return
+     */
+//    @Bean
+//    public ServletRegistrationBean MyServlet1(){
+//        return new ServletRegistrationBean(new MyServlet1(),"/myServlet/*");
+//    }
+
 
     public static void main(String[] args) {
 
