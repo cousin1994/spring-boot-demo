@@ -3,6 +3,7 @@ package com.cousin.springboot.base.exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,10 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
+
+    @ExceptionHandler(MultipartException.class)
     @ResponseBody
-    public String defaultErrorHandler(HttpServletRequest request, Exception e){
-        return e.getMessage();
+    public String fileSizeLimitHandler(HttpServletRequest request, Exception e) {
+        return "上传文件问题" + e.getMessage();
     }
 
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public String defaultErrorHandler(HttpServletRequest request, Exception e) {
+        return e.getMessage();
+    }
 }

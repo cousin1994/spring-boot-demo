@@ -1,6 +1,5 @@
 package com.cousin.springboot.service;
 
-import com.cousin.springboot.dao.UserDao;
 import com.cousin.springboot.dao.UserRepository;
 import com.cousin.springboot.model.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,24 +7,29 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author cousin
- * @Created 2016/11/27 18:51
+ * @created 2016/11/30 0:24
  */
 @Service
 public class UserService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserDao userDao;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
 
     public void save(User user){
         userRepository.save(user);
     }
 
-    public User fingById(Long id){
-        return userDao.getList(id);
+    public User findById(Long id) {
+        return userRepository.findOne(id);
     }
 
-
+    public void del(Long id) {
+        userRepository.delete(id);
+    }
 
 }

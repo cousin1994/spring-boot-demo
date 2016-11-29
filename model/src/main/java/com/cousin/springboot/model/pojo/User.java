@@ -14,6 +14,7 @@ import java.util.Date;
 public class User implements Serializable {
 
     private static final long serialVersionUID = -3481121925662248949L;
+
     @Id
     @GeneratedValue
     private Long id;

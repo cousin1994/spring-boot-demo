@@ -7,28 +7,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * @author cousin
- * @Created 2016/11/27 18:53
+ * @created 2016/11/30 0:33
  */
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @RequestMapping("/save")
-    public String saveUser(){
-        User user = new User();
-        user.setName("zhangsan");
-        userService.save(user);
-        return "成功";
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
 
-    @RequestMapping("/findOne/{id}")
-    public User findOne(@PathVariable("id") Long id){
-        return userService.fingById(id);
+    @RequestMapping("/usersave")
+    public String save() {
+        User user = new User();
+        user.setCreateTime(new Date());
+        user.setEmail("773807943@qq.com");
+        user.setName("cousin");
+        user.setPhone("155210147099");
+        user.setSalt(UUID.randomUUID().toString());
+        userService.save(user);
+        return "true";
+    }
+
+    @RequestMapping("/fingOne/{id}")
+    public User findById(@PathVariable("id") Long id) {
+        return userService.findById(id);
     }
 
 }
