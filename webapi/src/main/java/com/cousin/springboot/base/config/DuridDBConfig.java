@@ -21,7 +21,6 @@ import java.sql.SQLException;
  * @created 2016/11/29 0:04
  */
 @Configuration
-//@EnableTransactionManagement
 public class DuridDBConfig {
 
     private static Logger logger = LoggerFactory.getLogger(DuridDBConfig.class);
@@ -76,9 +75,11 @@ public class DuridDBConfig {
     private String filters;
 
 
+    private static final String DRUIDURL = "/druid/*";
+
+
     @Bean     //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
-//    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource(){
         logger.info("创建数据源：dbUrl{}，username{},password{},dirverClassName{},initialSize{},minIdle{},maxActive{},maxWait{}"
                 , dbUrl, username, password, driverClassName, initialSize, minIdle, maxActive, maxWait);
@@ -119,9 +120,9 @@ public class DuridDBConfig {
      * @return
      */
     @Bean
-    public ServletRegistrationBean DruidStatViewServle(){
+    public ServletRegistrationBean druidStatViewServle(){
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),DRUIDURL);
 
         //添加初始化参数：initParams
 

@@ -66,11 +66,11 @@ public class User implements Serializable {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return new Date(createTime.getTime());
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.createTime = new Date(createTime.getTime());
     }
 
     public String getEmail() {
@@ -95,5 +95,19 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", createTime=" + createTime +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
