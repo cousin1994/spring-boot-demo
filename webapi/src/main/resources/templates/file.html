@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
 >
 <head>
     <title>Hello World!</title>
@@ -8,6 +8,9 @@
 <form method="POST" enctype="multipart/form-data" action="/upload">
     <p>文件：<input type="file" name="file"/></p>
     <p><input type="submit" value="上传"/></p>
+    <label th:text="#{file}"></label>
+    <label th:text="#{hello}"></label>
+    <p><label th:text="#{file}"></label></p>
 </form>
 </body>
 </html>
