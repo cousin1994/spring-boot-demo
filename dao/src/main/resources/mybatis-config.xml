@@ -42,6 +42,8 @@
             <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
             <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
             <property name="reasonable" value="true"/>
+            <property name="rowBoundsWithCount" value="true"/>
+            <property name="offsetAsPageNum" value="true"/>
         </plugin>
     </plugins>
 </configuration>
