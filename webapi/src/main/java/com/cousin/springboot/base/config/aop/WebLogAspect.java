@@ -26,7 +26,10 @@ import java.util.Enumeration;
 @Component
 @Order(-5)
 public class WebLogAspect {
+
     private Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
+
+    ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     /**
      * 定义一个切入点.
@@ -45,6 +48,7 @@ public class WebLogAspect {
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) {
+        startTime.set(System.currentTimeMillis());
         logger.info("WebLogAspect.doBefore()");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -60,16 +64,17 @@ public class WebLogAspect {
         //获取所有参数方法一：
         Enumeration<String> enu = request.getParameterNames();
         while (enu.hasMoreElements()) {
-            String paraName = (String) enu.nextElement();
+            String paraName = enu.nextElement();
             logger.info("paraName:{}",request.getParameter(paraName));
         }
 
     }
 
     @AfterReturning("webLog()")
-    public void doAfterReturning(JoinPoint joinPoint){
+    public void doAfterReturning() {
         //处理完请求，，返回内容
         logger.info("WebLogAspect.doAfterReturning()");
+        logger.info("耗时（毫秒）：" + (System.currentTimeMillis() - startTime.get()));
     }
 
 }

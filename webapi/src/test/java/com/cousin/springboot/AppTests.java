@@ -1,6 +1,7 @@
 package com.cousin.springboot;
 
 import com.cousin.springboot.model.pojo.User;
+import com.cousin.springboot.service.TaskService;
 import com.cousin.springboot.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,9 @@ public class AppTests {
     @Resource
     private UserService userService;
 
+    @Resource
+    private TaskService taskService;
+
 
     @Test
     public void test_redis(){
@@ -53,5 +57,12 @@ public class AppTests {
         logger.info("开始删除");
         userService.del(4L);
         logger.info("删除完成");
+    }
+
+    @Test
+    public void test_task() throws Exception {
+        taskService.doTaskOne();
+        taskService.doTaskTwo();
+        taskService.doTaskThree();
     }
 }
