@@ -29,7 +29,7 @@ public class WebLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
-    ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     /**
      * 定义一个切入点.
