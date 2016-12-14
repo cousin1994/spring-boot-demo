@@ -55,6 +55,7 @@
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
+
         <!--mybatis自动生成表插件-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

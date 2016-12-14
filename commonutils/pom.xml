@@ -47,7 +47,7 @@
 
         <dependency>
             <groupId>com.cousin.springboot</groupId>
-            <artifactId>dao</artifactId>
+            <artifactId>model</artifactId>
         </dependency>
 
         <dependency>
