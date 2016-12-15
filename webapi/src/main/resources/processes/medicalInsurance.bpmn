@@ -36,7 +36,7 @@
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="logisticsApprove" targetRef="endevent1">
       <extensionElements>
-        <activiti:executionListener event="take" expression="${execution.setVariable('result', ${logisticsApproveReason})}"></activiti:executionListener>
+        <activiti:executionListener event="take" expression="${execution.setVariable('result', 'ok')}"></activiti:executionListener>
       </extensionElements>
     </sequenceFlow>
   </process>

@@ -13,7 +13,9 @@
         <tr>
             <td>ID</td>
             <td>KEY</td>
+            <td>部署id</td>
             <td>NAME</td>
+            <td>图片</td>
             <td>OPTS</td>
         </tr>
         </thead>
@@ -25,10 +27,17 @@
         </tr>
         <tr th:each="process : ${processes}">
             <td th:text="${process.id}"></td>
+            <td th:text="${process.deploymentId}"></td>
             <td th:text="${process.key}"></td>
             <td th:text="${process.name}"></td>
+            <td><a target="_blank"
+                   th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&amp;resourceName=' + ${process.diagramResourceName}}">
+                <span th:text="${process.diagramResourceName}"/>
+            </a>
+            </td>
             <td>
                 <a th:href="@{'/activiti/process/start/' + ${process.id}}">启动</a>
+                <a th:href="@{'/activiti/processes/delete/' + ${process.deploymentId}}">删除</a>
             </td>
         </tr>
         </tbody>
