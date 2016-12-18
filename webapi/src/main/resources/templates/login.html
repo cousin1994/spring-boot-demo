@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -28,18 +28,14 @@
 
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"/>
+    <!--<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"/>-->
+    <script src="/jquery/jquery-3.1.1.min.js"></script>
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"/>
-
+    <!--<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"/>-->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
     <!--layer弹框-->
-    <script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"/>
-    <script th:inline="javascript">
-        var msg = /*[[${session.msg}]]*/;
-        if(msg != null){
-            layer.alert(msg);
-        }
-    </script>
+    <!--<script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"/>-->
+    <script src="/layer/layer.js"></script>
 </body>
 </html>

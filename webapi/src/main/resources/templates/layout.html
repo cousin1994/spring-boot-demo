@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/web/thymeleaf/layout ">
 <head>
     <title>Layout</title>
-    <link rel="stylesheet"
-          th:href="@{/bootstrap/css/bootstrap.min.css}"
-          href="../../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li>
-                    <a href="/activiti/engine/info" target="_blank">引擎信息</a>
-                </li>
-                <li>
-                    <a href="/activiti/processes">流程定义</a>
-                </li>
-                <li>
-                    <a href="/activiti/tasks">任务列表</a>
-                </li>
-            </ul>
+<script src="/jquery/jquery-3.1.1.min.js"></script>
+<!--<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>-->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '/myjs/' //你的模块目录
+    }).use('layuiconfig'); //加载入口
+    //var index;
+    function addModel() {
+        var index = layer.open({
+            type: 1
+            ,
+            title: "创建模型" //不显示标题栏
+            ,
+            closeBtn: false
+            ,
+            area: '300px;'
+            ,
+            shade: 0.8
+            ,
+            id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            ,
+            resize: false
+            ,
+            btn: ['创建', '取消']
+            ,
+            btnAlign: 'c'
+            ,
+            moveType: 1 //拖拽模式，0或者1
+            ,
+            content: '<div><table class="table table-bordered">            <tr>                <th><label for="name">名称：</label></th>                <td><input  id="name" type="text" placeholder="输入名称" class="form-control"></td>            </tr>            <tr>                <th><label for="key">key：</label></th>                <td><input  id="key" type="text" placeholder="输入key" class="form-control"></td>            </tr>            <tr>                <th><label for="description">描述：</label></th>                <td><textarea  id="description" placeholder="输入描述" class="form-control"> </textarea></td>            </tr>    </table></div>'
+            ,
+            btn1: function () {
+                var name = $("#name").val();
+                var key = $("#key").val();
+                var descriptiong = $("#description").val();
+
+                layer.close(index);
+            }
+        });
+    }
+</script>
+<script src="/myjs/common.js"></script>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+
+            <nav class="navbar navbar-inner" role="navigation">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Cousin</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="/activiti/engine/info" target="_blank">引擎信息</a></li>
+                        <li><a href="/activiti/processes">流程定义</a></li>
+                        <li><a href="/activiti/tasks">任务列表</a></li>
+                        <li><a href="/activiti/list/running">运行中的流程</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                模型 <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:addModel()" target="_blank">新建模型</a></li>
+                                <li class="divider"></li>
+                            </ul>
+                        </li>
+                        <li><a href="/logout">退出登录</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+
+            </nav>
+            <h1 layout:fragment="header"></h1>
+            <div layout:fragment="content"></div>
+            <th:block layout:fragment="script"></th:block>
         </div>
     </div>
-    <h1 layout:fragment="header">Layout</h1>
-    <div layout:fragment="content">
-        Fake content
-    </div>
 </div>
+
+
 </body>
 </html>

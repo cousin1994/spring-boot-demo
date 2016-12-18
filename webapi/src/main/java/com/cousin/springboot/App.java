@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @ServletComponentScan
 @EnableAsync
+//@MapperScan(basePackages = "com")
 public class App {
 
     /**

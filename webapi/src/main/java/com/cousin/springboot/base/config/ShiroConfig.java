@@ -77,6 +77,7 @@ public class ShiroConfig {
         //设置realm
         defaultWebSecurityManager.setRealm(MyShiroRealm());
 
+
         //注入记住我的管理器
         defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
         return defaultWebSecurityManager;

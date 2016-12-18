@@ -7,23 +7,21 @@
 </head>
 <body>
 <h1 layout:fragment="header">流程定义列表</h1>
-<div layout:fragment="content" class="container">
-    <table class="table table-bordered table-striped">
+<div layout:fragment="content">
+    <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
-            <td>ID</td>
-            <td>KEY</td>
-            <td>部署id</td>
-            <td>NAME</td>
-            <td>图片</td>
-            <td>OPTS</td>
+            <td width="15%">ID</td>
+            <td width="5%">KEY</td>
+            <td width="5%">部署id</td>
+            <td width="15%">NAME</td>
+            <td width="50%">图片</td>
+            <td width="10%">OPTS</td>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${processes.empty}">
-            <td colspan="3">
-                No messages
-            </td>
+            <td colspan="5">No messages</td>
         </tr>
         <tr th:each="process : ${processes}">
             <td th:text="${process.id}"></td>
@@ -31,8 +29,8 @@
             <td th:text="${process.key}"></td>
             <td th:text="${process.name}"></td>
             <td><a target="_blank"
-                   th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&amp;resourceName=' + ${process.diagramResourceName}}">
-                <span th:text="${process.diagramResourceName}"/>
+                   th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&resourceName=' + ${process.diagramResourceName}}">
+                <span th:text="${process.diagramResourceName}"></span>
             </a>
             </td>
             <td>

@@ -28,6 +28,8 @@
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<activiti.version>5.22.0</activiti.version>
 		<commons-io.version>2.5</commons-io.version>
+        <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 	</properties>
 
 	<modules>
@@ -161,7 +163,8 @@
 				<version>${activiti.version}</version>
 			</dependency>
 
-		</dependencies>
+
+        </dependencies>
 	</dependencyManagement>
 
 </project>

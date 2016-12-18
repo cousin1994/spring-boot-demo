@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -70,9 +73,10 @@ public class ActivitiController {
 
     @RequestMapping("/processes")
     public ModelAndView processes() {
-        ModelAndView mav = new ModelAndView("processes");
+        ModelAndView mav = new ModelAndView("activiti/processes");
         List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
         mav.addObject("processes", list);
+        mav.addObject("test", "你好");
         return mav;
     }
 
@@ -85,7 +89,7 @@ public class ActivitiController {
 
     @RequestMapping("/tasks")
     public ModelAndView tasks() {
-        ModelAndView mav = new ModelAndView("tasks");
+        ModelAndView mav = new ModelAndView("activiti/tasks");
         List<Task> list = taskService.createTaskQuery().list();
         mav.addObject("tasks", list);
         return mav;
@@ -125,6 +129,7 @@ public class ActivitiController {
 
         // 通过接口读取
         InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), resourceName);
+
 
 
         // 输出资源内容到相应对象
@@ -167,6 +172,35 @@ public class ActivitiController {
         }
 
         return "redirect:/activiti/processes";
+    }
+
+    /**
+     * 读取运行中的流程实例
+     *
+     * @return
+     */
+    @RequestMapping(value = "/list/running")
+    public ModelAndView runningList(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("activiti/running");
+        List<Map<String, Object>> params = new ArrayList<>();
+        List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().active().orderByProcessInstanceId().desc().list();
+        List<String> nameList = new ArrayList<>();
+        for (ProcessInstance processInstance : list) {
+            Map<String, Object> get = new HashMap<>();
+//            String businessKey = processInstance.getBusinessKey();
+//            if (StringUtils.isBlank(businessKey)){
+//                continue;
+//            }
+            Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).active().singleResult();
+//            nameList.add(task.getName());
+            get.put("pi", processInstance);
+            get.put("task", task);
+            params.add(get);
+        }
+        mav.addObject("list", list);
+        mav.addObject("taskList", nameList);
+        mav.addObject("map", params);
+        return mav;
     }
 
 }
