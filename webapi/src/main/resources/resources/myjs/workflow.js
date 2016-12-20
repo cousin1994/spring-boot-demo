@@ -1,6 +1,6 @@
 function graphTrace(options) {
 
-    var ctx = "http://" + document.domain;
+    var ctx = "http://" + window.location.host;
 
     var index;
 
@@ -89,11 +89,11 @@ function graphTrace(options) {
                 zIndex: $.fn.qtip.zindex - 2
             });
 
-            if (v.currentActiviti) {
-                $border.addClass('ui-corner-all-12').css({
-                    border: '3px solid red'
-                });
-            }
+            // if (v.currentActiviti) {
+            //     $border.addClass('ui-corner-all-12').css({
+            //         border: '3px solid red'
+            //     });
+            // }
             positionHtml += $positionDiv.outerHTML() + $border.outerHTML();
             varsArray[varsArray.length] = v.vars;
         });
@@ -119,6 +119,20 @@ function graphTrace(options) {
         });
 
         // 打开对话框
+        // var url2 = ctx + '/diagram-viewer/index.html?processDefinitionId=' + opts.pdid + '&processInstanceId=' + opts.pid;
+        //
+        // //用官方的iframe展开
+        // index = layer.open({
+        //     type: 2,
+        //     shade: false,
+        //     area: ['80%', '80%'],
+        //     maxmin: true,
+        //     content: url2,
+        //     zIndex: layer.zIndex, //重点1
+        //     success: function(layero){
+        //         layer.setTop(layero); //重点2
+        //     }
+        // });
 
         index = layer.open({
             type: 1

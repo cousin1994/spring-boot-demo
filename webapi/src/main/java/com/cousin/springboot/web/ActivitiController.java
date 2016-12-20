@@ -1,14 +1,16 @@
 package com.cousin.springboot.web;
 
+import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,11 +127,10 @@ public class ActivitiController {
             throws Exception {
 
 
-        ProcessDefinitionQuery pdq = repositoryService.createProcessDefinitionQuery();
-        ProcessDefinition pd = pdq.processDefinitionId(processDefinitionId).singleResult();
-
-        // 通过接口读取
-        InputStream resourceAsStream = repositoryService.getResourceAsStream(pd.getDeploymentId(), resourceName);
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        ProcessDiagramGenerator p = new DefaultProcessDiagramGenerator();
+        InputStream resourceAsStream = p.generateDiagram(bpmnModel,"png","宋体","宋体","宋体",null);
+        OutputStream os = response.getOutputStream() ;
 
 
 

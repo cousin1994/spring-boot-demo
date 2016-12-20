@@ -13,11 +13,11 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.task.TaskDefinition;
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -104,18 +104,14 @@ public class WorkFlowController {
     @RequestMapping(value = "/resource/process-instance")
     public void loadByProcessInstance(@RequestParam("type") String resourceType, @RequestParam("pid") String processInstanceId, HttpServletResponse response)
             throws Exception {
-        InputStream resourceAsStream = null;
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processInstance.getProcessDefinitionId())
-                .singleResult();
 
-        String resourceName = "";
-        if (resourceType.equals("image")) {
-            resourceName = processDefinition.getDiagramResourceName();
-        } else if (resourceType.equals("xml")) {
-            resourceName = processDefinition.getResourceName();
-        }
-        resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
+        List activeIds = runtimeService.getActiveActivityIds(pi.getId());
+        ProcessDiagramGenerator p = new DefaultProcessDiagramGenerator();
+        InputStream resourceAsStream = p.generateDiagram(bpmnModel,"png",activeIds,Collections.emptyList(),"宋体","宋体","宋体",null,1.0);
+
+
         byte[] b = new byte[1024];
         int len = -1;
         while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
