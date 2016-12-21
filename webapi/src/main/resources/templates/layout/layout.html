@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/web/thymeleaf/layout ">
+<head>
+    <title>Layout</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<script src="/jquery/jquery-3.1.1.min.js"></script>
+<!--<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>-->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '/myjs/' //你的模块目录
+    }).use('layuiconfig'); //加载入口
+</script>
+<!--<script src="/myjs/common.js"></script>-->
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+
+            <nav class="navbar navbar-inner" role="navigation">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Cousin</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="/userinfo/userList">用户信息</a></li>
+                        <li><a href="/activiti/processes">流程定义</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="divider-vertical"></li>
+                        <li><a href="/logout">退出登录</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+
+            </nav>
+            <h1 layout:fragment="header"></h1>
+            <div layout:fragment="content"></div>
+            <th:block layout:fragment="script"></th:block>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
