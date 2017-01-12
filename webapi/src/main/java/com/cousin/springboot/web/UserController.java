@@ -42,4 +42,9 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @RequestMapping("/del/{id}")
+    public String deluser(@PathVariable("id") Long id) {
+        userService.del(id);
+        return "true";
+    }
 }

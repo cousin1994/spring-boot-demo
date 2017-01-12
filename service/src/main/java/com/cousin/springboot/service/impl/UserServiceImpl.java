@@ -6,7 +6,6 @@ import com.cousin.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,12 +17,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, StringRedisTemplate stringRedisTemplate) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.stringRedisTemplate = stringRedisTemplate;
     }
 
 
@@ -32,13 +29,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Cacheable(value = "userinfo")//缓存，没有指定key
+    @Cacheable(value = "userinfo", key = "getTargetClass().name.replace('.',':')+#id.toString()")//缓存，没有指定key
     @Override
     public User findById(Long id) {
         return userRepository.findOne(id);
     }
 
-    @CacheEvict(value = "userinfo")
+    @CacheEvict(value = "userinfo", key = "getTargetClass().name.replace('.',':')+#id.toString()")
     @Override
     public void del(Long id) {
         userRepository.delete(id);
