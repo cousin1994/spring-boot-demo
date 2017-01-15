@@ -1,45 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="/activiti/layout">
+      layout:decorator="/layout/layout">
 <head>
     <title>流程定义列表</title>
 </head>
 <body>
-<h1 layout:fragment="header">流程定义列表</h1>
 <div layout:fragment="content">
-    <table class="table table-bordered table-hover table-striped">
-        <thead>
-        <tr>
-            <td width="15%">ID</td>
-            <td width="5%">KEY</td>
-            <td width="5%">部署id</td>
-            <td width="15%">NAME</td>
-            <td width="50%">图片</td>
-            <td width="10%">OPTS</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${processes.empty}">
-            <td colspan="5">No messages</td>
-        </tr>
-        <tr th:each="process : ${processes}">
-            <td th:text="${process.id}"></td>
-            <td th:text="${process.deploymentId}"></td>
-            <td th:text="${process.key}"></td>
-            <td th:text="${process.name}"></td>
-            <td><a target="_blank"
-                   th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&resourceName=' + ${process.diagramResourceName}}">
-                <span th:text="${process.diagramResourceName}"></span>
-            </a>
-            </td>
-            <td>
-                <a th:href="@{'/activiti/process/start/' + ${process.id}}">启动</a>
-                <a th:href="@{'/activiti/processes/delete/' + ${process.deploymentId}}">删除</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">流程管理</strong> /
+                <small>流程定义</small>
+            </div>
+        </div>
+
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-9">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 导入压缩文件
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-input-group am-input-group-sm">
+                    <input type="text" class="am-form-field">
+                    <span class="am-input-group-btn">
+                        <button class="am-btn am-btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <form class="am-form">
+                    <table class="am-table am-table-striped am-table-hover table-main">
+                        <thead>
+                        <tr>
+                            <td width="15%">ID</td>
+                            <td width="5%">KEY</td>
+                            <td width="5%">部署id</td>
+                            <td width="15%">NAME</td>
+                            <td width="50%">图片</td>
+                            <td width="10%">OPTS</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${processes.empty}">-->
+                            <td colspan="5">No messages</td>
+                        </tr>
+                        <tr th:each="process : ${processes}">
+                            <td th:text="${process.id}"></td>
+                            <td th:text="${process.deploymentId}"></td>
+                            <td th:text="${process.key}"></td>
+                            <td th:text="${process.name}"></td>
+                            <td><a target="_blank"
+                                   th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&resourceName=' + ${process.diagramResourceName}}">
+                                <span th:text="${process.diagramResourceName}"></span>
+                            </a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/activiti/process/start/' + ${process.id}}">启动</a>
+                                <a th:href="@{'/activiti/processes/delete/' + ${process.deploymentId}}">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<table class="table table-bordered table-hover table-striped">-->
+    <!--<thead>-->
+    <!--<tr>-->
+    <!--<td width="15%">ID</td>-->
+    <!--<td width="5%">KEY</td>-->
+    <!--<td width="5%">部署id</td>-->
+    <!--<td width="15%">NAME</td>-->
+    <!--<td width="50%">图片</td>-->
+    <!--<td width="10%">OPTS</td>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr th:if="${processes.empty}">-->
+    <!--<td colspan="5">No messages</td>-->
+    <!--</tr>-->
+    <!--<tr th:each="process : ${processes}">-->
+    <!--<td th:text="${process.id}"></td>-->
+    <!--<td th:text="${process.deploymentId}"></td>-->
+    <!--<td th:text="${process.key}"></td>-->
+    <!--<td th:text="${process.name}"></td>-->
+    <!--<td><a target="_blank"-->
+    <!--th:href="@{'/activiti/read-resource?pdid=' + ${process.id} + '&resourceName=' + ${process.diagramResourceName}}">-->
+    <!--<span th:text="${process.diagramResourceName}"></span>-->
+    <!--</a>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<a th:href="@{'/activiti/process/start/' + ${process.id}}">启动</a>-->
+    <!--<a th:href="@{'/activiti/processes/delete/' + ${process.deploymentId}}">删除</a>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+    <!--</table>-->
 </div>
 </body>
 </html>
