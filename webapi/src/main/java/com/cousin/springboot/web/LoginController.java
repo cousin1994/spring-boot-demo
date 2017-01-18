@@ -42,10 +42,10 @@ public class LoginController {
     public String login(HttpServletRequest request, Model model){
         logger.info("开始接受登录页面操作");
         UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
-        if (user!=null) {
-            SecurityUtils.getSubject().getSession().setTimeout(-1000L);
-            return "/index";
-        }
+//        if (user!=null) {
+//            SecurityUtils.getSubject().getSession().setTimeout(-1000L);
+//            return "/index";
+//        }
 
         String exception = (String)request.getAttribute("shiroLoginFailure");
 

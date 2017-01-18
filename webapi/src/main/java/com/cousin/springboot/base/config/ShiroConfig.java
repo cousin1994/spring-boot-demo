@@ -51,14 +51,15 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "logout");
 
         //配置记住我或认证通过可以访问的地址
-        filterChainDefinitionMap.put("/index", "user");
         filterChainDefinitionMap.put("/", "user");
+        filterChainDefinitionMap.put("/index", "user");
 
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        filterChainDefinitionMap.put("/login", "authc");
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/wechat/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "user");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -131,7 +132,7 @@ public class ShiroConfig {
 
     @Bean
     public SimpleCookie remeberMeCookie(){
-        logger.info("shiro====remeberMeCookie()");
+        logger.info("shiro==记住我");
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("remeberMe");
         //<!-- 记住我cookie生效时间30天 ,单位秒;-->
