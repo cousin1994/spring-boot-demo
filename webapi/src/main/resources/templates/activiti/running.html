@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="/activiti/layout">
+      layout:decorator="/layout/layout">
 <head>
     <title>运行中的流程</title>
 </head>
 <body>
-<h1 layout:fragment="header">运行中流程列表</h1>
 <div layout:fragment="content">
-    <table class="table table-bordered table-hover table-striped">
-        <thead>
-        <tr>
-            <td width="15%">ID</td>
-            <td width="5%">KEY</td>
-            <td width="5%">部署id</td>
-            <td width="15%">NAME</td>
-            <td width="50%">图片</td>
-            <td width="10%">OPTS</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${map.empty}">
-            <td colspan="5">No messages</td>
-        </tr>
-        <tr th:each="map: ${map}">
-            <td th:text="${map['pi'].id}"></td>
-            <td th:text="${map['pi'].deploymentId}"></td>
-            <td th:text="${map['pi'].businessKey}"></td>
-            <td th:text="${map['task'].name}"></td>
-            <td><a class="trace"
-                   href="#" th:pid="${map['pi'].id}" th:pdid="${map['pi'].processDefinitionId}"
-                   th:text="${map['task'].name}">
-                <!--<span th:text="${nameList[iterationStatus.index]}"></span>-->
-            </a>
-            </td>
-            <td>
-                <a th:href="@{'/activiti/process/start/' + ${map['pi'].id}}">启动</a>
-                <a th:href="@{'/activiti/processes/delete/' + ${map['pi'].deploymentId}}">删除</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="admin-content-body">
 
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">流程管理</strong> /
+                <small>运行中的流程</small>
+            </div>
+        </div>
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <form class="am-form am-form-horizontal">
+                    <table class="am-table am-table-bordered am-table-hover table-main">
+                        <thead>
+                        <tr>
+                            <th width="15%">ID</th>
+                            <th width="5%">KEY</th>
+                            <th width="15%">部署id</th>
+                            <th width="15%">NAME</th>
+                            <th width="40%">图片</th>
+                            <th width="10%">OPTS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${map.empty}">
+                            <td colspan="5">No messages</td>
+                        </tr>
+                        <!--/*@thymesVar id="map" type="java.util.Map"*/-->
+                        <tr th:each="map: ${map}">
+                            <td th:text="${map['pi'].id}"></td>
+                            <td th:text="${map['pi'].deploymentId}"></td>
+                            <td th:text="${map['pi'].businessKey}"></td>
+                            <td th:text="${map['task'].name}"></td>
+                            <td><a class="trace"
+                                   href="#" th:pid="${map['pi'].id}" th:pdid="${map['pi'].processDefinitionId}"
+                                   th:text="${map['task'].name}">
+                                <!--<span th:text="${nameList[iterationStatus.index]}"></span>-->
+                            </a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/activiti/process/start/' + ${map['pi'].id}}">启动</a>
+                                <a th:href="@{'/activiti/processes/delete/' + ${map['pi'].deploymentId}}">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <th:block layout:fragment="script">
     <script src="/myjs/workflow.js"></script>

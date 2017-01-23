@@ -94,7 +94,7 @@ function graphTrace(options) {
             //         border: '3px solid red'
             //     });
             // }
-            positionHtml += $positionDiv.outerHTML() + $border.outerHTML();
+            positionHtml += $positionDiv[0].outerHTML + $border[0].outerHTML;
             varsArray[varsArray.length] = v.vars;
         });
 

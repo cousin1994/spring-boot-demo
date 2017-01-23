@@ -1,0 +1,18 @@
+/*自己写的共用的css样式*/
+.table-main {
+    font-size: 1.4rem;
+    padding: .5rem;
+}
+
+.table-main button {
+    background: #fff;
+}
+
+table {
+    table-layout: fixed;
+}
+
+table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
