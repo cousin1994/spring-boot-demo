@@ -1,8 +1,6 @@
 package com.cousin.springboot.web;
 
-import com.cousin.springboot.model.pojo.UserInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.slf4j.Logger;
@@ -41,7 +39,7 @@ public class LoginController {
     @RequestMapping(value = "/login")
     public String login(HttpServletRequest request, Model model){
         logger.info("开始接受登录页面操作");
-        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
+//        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
 //        if (user!=null) {
 //            SecurityUtils.getSubject().getSession().setTimeout(-1000L);
 //            return "/index";

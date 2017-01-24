@@ -33,7 +33,7 @@ public class FileController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String HandleFileUpLoad(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public String handleFileUpLoad(@RequestParam("file") MultipartFile multipartFile) throws IOException {
         if (!multipartFile.isEmpty()) {
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(new File(multipartFile.getOriginalFilename())));
             bufferedOutputStream.write(multipartFile.getBytes());

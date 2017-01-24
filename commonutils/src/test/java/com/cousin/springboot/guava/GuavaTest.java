@@ -1,11 +1,8 @@
 package com.cousin.springboot.guava;
 
 import com.cousin.springboot.model.pojo.UserInfo;
-import com.google.common.collect.Maps;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -29,7 +26,6 @@ public class GuavaTest {
             System.out.println("true");
             System.out.println(possible.get());
         }
-        Map<String, List<String>> map = Maps.newHashMap();
     }
 
     @Test

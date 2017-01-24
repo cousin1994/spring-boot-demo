@@ -2,6 +2,7 @@ package com.cousin.springboot.poi;
 
 import com.cousin.springboot.model.pojo.User;
 import com.cousin.springboot.poi.export.ExportExcelUtil;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -52,7 +53,7 @@ public class ExportExcelUtilTest {
 
         FileOutputStream file = new FileOutputStream(new File("deom.xls"));
 
-
+        IOUtils.closeQuietly(file);
 //        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
 //        objectOutputStream.flush();
 //        objectOutputStream.close();

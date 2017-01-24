@@ -97,7 +97,7 @@ public class ExportExcelUtil {
                 }
                 rowNum++;
             }
-            adjustColumnSize(sheets, sheetNum, fieldNames); // 自动调整列宽
+//            adjustColumnSize(sheets, sheetNum, fieldNames); // 自动调整列宽
             sheetNum++;
         }
         wb.write(outputStream);

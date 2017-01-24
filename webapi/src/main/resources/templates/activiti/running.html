@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="/layout/layout">
+      layout:decorate="/layout/layout">
 <head>
     <title>运行中的流程</title>
 </head>
@@ -29,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:if="${map.empty}">
+                        <tr th:if="${#lists.isEmpty(map)}">
                             <td colspan="5">No messages</td>
                         </tr>
                         <!--/*@thymesVar id="map" type="java.util.Map"*/-->

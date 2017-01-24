@@ -59,7 +59,8 @@ public class WorkflowUtils {
         String diagramDir = exportDir + "/" + key + "/" + version;
         File diagramDirFile = new File(diagramDir);
         if (!diagramDirFile.exists()) {
-            diagramDirFile.mkdirs();
+            boolean fale = diagramDirFile.mkdirs();
+            logger.info("创建文件{}", fale ? "是" : "否");
         }
         diagramPath = diagramDir + "/" + diagramResourceName;
         File file = new File(diagramPath);
@@ -70,7 +71,7 @@ public class WorkflowUtils {
             logger.debug("diagram exist, ignore... : {}", diagramPath);
             return diagramPath;
         } else {
-            file.createNewFile();
+            boolean flag = file.createNewFile();
         }
 
         logger.debug("export diagram to : {}", diagramPath);

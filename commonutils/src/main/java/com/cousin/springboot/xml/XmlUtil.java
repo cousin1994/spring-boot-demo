@@ -1,6 +1,7 @@
 package com.cousin.springboot.xml;
 
 import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
+import org.apache.commons.io.IOUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -63,13 +64,19 @@ public class XmlUtil {
                     Boolean.TRUE);
             // 将对象转换成输出流形式的xml
             // 创建输出流
-            FileWriter fw = null;
+            PrintWriter pw = null;
             try {
-                fw = new FileWriter(path);
+                File f = new File(path);
+                Writer w = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
+                pw = new PrintWriter(w);
+//                FileWriter fw = null;
+//                fw = new FileWriter(path);
+                marshaller.marshal(obj, pw);
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                IOUtils.closeQuietly(pw);
             }
-            marshaller.marshal(obj, fw);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -103,13 +110,15 @@ public class XmlUtil {
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            FileReader fr = null;
+            InputStreamReader isp = null;
             try {
-                fr = new FileReader(xmlPath);
-            } catch (FileNotFoundException e) {
+                isp = new InputStreamReader(new FileInputStream(xmlPath), "UTF-8");
+                xmlObject = unmarshaller.unmarshal(isp);
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 e.printStackTrace();
+            } finally {
+                IOUtils.closeQuietly(isp);
             }
-            xmlObject = unmarshaller.unmarshal(fr);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

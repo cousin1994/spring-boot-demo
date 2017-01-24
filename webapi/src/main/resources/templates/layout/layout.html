@@ -16,6 +16,7 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}"/>
     <link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}">
     <link rel="stylesheet" th:href="@{/mycss/public.css}">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 </head>
@@ -24,6 +25,8 @@
 <script th:src="@{/layer/layer.js}"></script>
 <!--<script th:src="@{/assets/js/jquery.min.js}"></script>-->
 <script th:src="@{/assets/js/amazeui.min.js}"></script>
+<script th:src="@{/assets/js/app.js}"></script>
+<script th:src="@{/assets/js/iscroll.js}"></script>
 <script th:src="@{/assets/js/app.js}"></script>
 
 <header class="am-topbar am-topbar-inverse admin-header">
@@ -65,7 +68,7 @@
             <ul class="am-list admin-sidebar-list">
                 <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
                 <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file "></span>
                         流程管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
                         <li><a href="/activiti/processes" class="am-cf"><span class="am-icon-check"></span> 流程定义</a></li>
