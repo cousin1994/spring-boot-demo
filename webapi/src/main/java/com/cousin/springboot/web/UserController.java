@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * @author cousin
  * @created 2016/11/30 0:33
  */
-@RestController
+@RestController(value = "/user")
 public class UserController {
 
     private final UserService userService;
@@ -47,4 +48,12 @@ public class UserController {
         userService.del(id);
         return "true";
     }
+
+    @RequestMapping("/all")
+    public List<User> selectALL(){
+        return userService.selectAllList(null);
+    }
+
+
+
 }

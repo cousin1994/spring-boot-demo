@@ -31,7 +31,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -46,7 +48,6 @@ public class WorkFlowController {
     @Autowired
     protected RepositoryService repositoryService;
 
-    //    protected WorkflowTraceService traceService;
     @Autowired
     protected TaskService taskService;
 
@@ -69,14 +70,11 @@ public class WorkFlowController {
      * 读取带跟踪的图片
      */
     @RequestMapping(value = "/process/trace/auto/{executionId}")
-    public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)
-            throws Exception {
+    public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response) throws IOException {
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
         List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
-        // 不使用spring请使用下面的两行代码
-//    ProcessEngineImpl defaultProcessEngine = (ProcessEngineImpl) ProcessEngines.getDefaultProcessEngine();
-//    Context.setProcessEngineConfiguration(defaultProcessEngine.getProcessEngineConfiguration());
+
 
         // 使用spring注入引擎请使用下面的这行代码
         processEngineConfiguration = processEngine.getProcessEngineConfiguration();
@@ -102,8 +100,7 @@ public class WorkFlowController {
      * @throws Exception
      */
     @RequestMapping(value = "/resource/process-instance")
-    public void loadByProcessInstance(@RequestParam("type") String resourceType, @RequestParam("pid") String processInstanceId, HttpServletResponse response)
-            throws Exception {
+    public void loadByProcessInstance(@RequestParam("type") String resourceType, @RequestParam("pid") String processInstanceId, HttpServletResponse response) throws IOException {
 
         ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
@@ -113,7 +110,7 @@ public class WorkFlowController {
 
 
         byte[] b = new byte[1024];
-        int len = -1;
+        int len;
         while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
             response.getOutputStream().write(b, 0, len);
         }
@@ -129,9 +126,13 @@ public class WorkFlowController {
      */
     @RequestMapping(value = "/process/trace")
     @ResponseBody
-    public List<Map<String, Object>> traceProcess(@RequestParam("pid") String processInstanceId) throws Exception {
-        List<Map<String, Object>> activityInfos = this.traceProcessq(processInstanceId);
-        return activityInfos;
+    public List<Map<String, Object>> traceProcess(@RequestParam("pid") String processInstanceId)  {
+        try {
+            return this.traceProcessq(processInstanceId);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            logger.error("你妹，有问题！{}",e);
+        }
+        return Collections.emptyList();
     }
 
 
@@ -141,7 +142,7 @@ public class WorkFlowController {
      * @param processInstanceId 流程实例ID
      * @return 封装了各种节点信息
      */
-    private List<Map<String, Object>> traceProcessq(String processInstanceId) throws Exception {
+    private List<Map<String, Object>> traceProcessq(String processInstanceId) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Execution execution = runtimeService.createExecutionQuery().executionId(processInstanceId).singleResult();//执行实例
         Object property = PropertyUtils.getProperty(execution, "activityId");
         String activityId = "";
@@ -154,7 +155,7 @@ public class WorkFlowController {
                 .getDeployedProcessDefinition(processInstance.getProcessDefinitionId());
         List<ActivityImpl> activitiList = processDefinition.getActivities();//获得当前任务的所有节点
 
-        List<Map<String, Object>> activityInfos = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> activityInfos = new ArrayList<>();
         for (ActivityImpl activity : activitiList) {
 
             boolean currentActiviti = false;
@@ -182,9 +183,9 @@ public class WorkFlowController {
      * @return
      */
     private Map<String, Object> packageSingleActivitiInfo(ActivityImpl activity, ProcessInstance processInstance,
-                                                          boolean currentActiviti) throws Exception {
-        Map<String, Object> vars = new HashMap<String, Object>();
-        Map<String, Object> activityInfo = new HashMap<String, Object>();
+                                                          boolean currentActiviti) {
+        Map<String, Object> vars = new HashMap<>();
+        Map<String, Object> activityInfo = new HashMap<>();
         activityInfo.put("currentActiviti", currentActiviti);
         setPosition(activity, activityInfo);
         setWidthAndHeight(activity, activityInfo);
@@ -234,13 +235,13 @@ public class WorkFlowController {
     }
 
     private void setTaskGroup(Map<String, Object> vars, Set<Expression> candidateGroupIdExpressions) {
-        String roles = "";
+        StringBuilder roles = new StringBuilder();
         for (Expression expression : candidateGroupIdExpressions) {
             String expressionText = expression.getExpressionText();
             String roleName = identityService.createGroupQuery().groupId(expressionText).singleResult().getName();
-            roles += roleName;
+            roles.append(roleName);
         }
-        vars.put("任务所属角色", roles);
+        vars.put("任务所属角色", roles.toString());
     }
 
     /**
@@ -298,8 +299,10 @@ public class WorkFlowController {
                     .singleResult();
             logger.debug("current task for processInstance: {}", ToStringBuilder.reflectionToString(currentTask));
 
-        } catch (Exception e) {
-            logger.error("can not get property activityId from processInstance: {}", processInstance);
+        }  catch (IllegalAccessException | InvocationTargetException e) {
+            logger.error("exception:{}",e);
+        } catch (NoSuchMethodException e) {
+            logger.error("can not get property activityId from processInstance: {},exception:{}", processInstance,e);
         }
         return currentTask;
     }

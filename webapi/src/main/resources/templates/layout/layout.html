@@ -67,15 +67,17 @@
                 <li class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
                         流程管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                        <li><a href="/activiti/processes" class="am-cf"><span class="am-icon-check"></span> 流程定义</a>
-                        </li>
+                    <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
+                        <li><a href="/activiti/processes" class="am-cf"><span class="am-icon-check"></span> 流程定义</a></li>
                         <li><a href="/activiti/tasks"><span class="am-icon-puzzle-piece"></span> 任务列表</a></li>
                         <li><a href="/activiti/list/running"><span class="am-icon-th"></span> 运行中的流程</a></li>
                         <li><a href="/activiti/engine/info" target="_blank"><span class="am-icon-calendar"></span> 引擎信息</a>
                         </li>
                     </ul>
                 </li>
+
+                <li shiro:hasPermission="userInfo:add" ><a href="admin-table.html"><span class="am-icon-table"></span> 用户管理</a></li>
+
                 <li><a href="admin-table.html"><span class="am-icon-table"></span> 权限管理</a></li>
                 <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
                 <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>

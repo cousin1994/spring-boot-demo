@@ -1,8 +1,6 @@
 package com.cousin.springboot.model.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,10 +14,12 @@ public class User implements Serializable {
     private static final long serialVersionUID = -3481121925662248949L;
 
     @Id
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user;
+    @Column(name = "user")
+    private String username;
 
     private String password;
 
@@ -41,12 +41,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -101,8 +101,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
                 ", salt='" + salt + '\'' +
                 ", createTime=" + createTime +
                 ", email='" + email + '\'' +

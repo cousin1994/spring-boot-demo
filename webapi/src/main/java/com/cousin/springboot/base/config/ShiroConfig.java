@@ -1,5 +1,6 @@
 package com.cousin.springboot.base.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.cousin.springboot.base.shiro.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -54,8 +55,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/", "user");
         filterChainDefinitionMap.put("/index", "user");
 
-        //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        //过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 :这是一个坑呢，一不小心代码就不好使了
+        // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/login", "authc");
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/wechat/**", "anon");
@@ -65,7 +66,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
-        //未授权界面;
+        //未授权界面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -78,7 +79,7 @@ public class ShiroConfig {
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         //设置realm
-        defaultWebSecurityManager.setRealm(MyShiroRealm());
+        defaultWebSecurityManager.setRealm(myShiroRealm());
 
 
         //注入记住我的管理器
@@ -93,7 +94,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public UserRealm MyShiroRealm() {
+    public UserRealm myShiroRealm() {
         UserRealm userrealm = new UserRealm();
         userrealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return userrealm;
@@ -148,4 +149,8 @@ public class ShiroConfig {
         return cookieRememberMeManager;
     }
 
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
+    }
 }

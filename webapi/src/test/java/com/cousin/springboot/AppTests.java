@@ -39,7 +39,7 @@ public class AppTests {
         user.setName("cousin");
         user.setCreateTime(new Date());
         user.setPassword("123456");
-        user.setUser("user");
+        user.setUsername("user");
         user.setSalt(UUID.randomUUID().toString());
         userService.save(user);
     }

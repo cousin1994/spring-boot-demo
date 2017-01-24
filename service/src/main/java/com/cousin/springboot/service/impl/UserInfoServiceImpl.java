@@ -6,6 +6,8 @@ import com.cousin.springboot.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author cousin
  * @Created 2016/12/2 11:10
@@ -19,5 +21,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo findByUsername(String username) {
         return userInfoRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<UserInfo> selectAll() {
+        return (List<UserInfo>) userInfoRepository.findAll();
     }
 }

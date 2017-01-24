@@ -1,5 +1,6 @@
 package com.cousin.springboot.service.impl;
 
+import com.cousin.springboot.dao.UserMapper;
 import com.cousin.springboot.dao.UserRepository;
 import com.cousin.springboot.model.pojo.User;
 import com.cousin.springboot.service.UserService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author cousin
@@ -16,11 +20,13 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
 
@@ -39,5 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void del(Long id) {
         userRepository.delete(id);
+    }
+
+    @Override
+    public List<User> selectAllList(Map<String,Object> params){
+        return userMapper.selectByExample(params);
     }
 }
