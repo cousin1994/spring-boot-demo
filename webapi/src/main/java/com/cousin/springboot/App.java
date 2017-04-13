@@ -21,11 +21,6 @@ public class App {
      * 注册Servlet.不需要添加注解：@ServletComponentScan
      * @return
      */
-//    @Bean
-//    public ServletRegistrationBean MyServlet1(){
-//        return new ServletRegistrationBean(new MyServlet1(),"/myServlet/*");
-//    }
-
     public static void main(String[] args) {
 
         SpringApplication.run(App.class,args);
