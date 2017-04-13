@@ -7,17 +7,24 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="admin-content-body">
 
-        <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">流程管理</strong> /
-                <small>运行中的流程</small>
-            </div>
+    <div>
+        <div class="tpl-content-page-title">
+            activiti流程管理
         </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">流程管理</a></li>
+            <li class="am-active">运行中的流程</li>
+        </ol>
+    </div>
+
+    <div class="tpl-portlet-components">
+
         <div class="am-g">
-            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                <form class="am-form am-form-horizontal">
-                    <table class="am-table am-table-bordered am-table-hover table-main">
+            <div class="am-u-sm-12">
+                <form  role="form" class="am-form">
+                    <table class="am-table am-table-hover am-table-striped table-main">
                         <thead>
                         <tr>
                             <th width="15%">ID</th>
@@ -55,6 +62,12 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
 </div>
 <th:block layout:fragment="script">
     <script src="/myjs/workflow.js"></script>

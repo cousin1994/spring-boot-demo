@@ -158,25 +158,68 @@
             Amaze UI 列表
         </div>
         <div class="tpl-left-nav-list">
-            <ul class="am-list admin-sidebar-list">
-                <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
-                <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file "></span>
-                        流程管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-                        <li><a href="/activiti/processes" class="am-cf"><span class="am-icon-check"></span> 流程定义</a></li>
-                        <li><a href="/activiti/tasks"><span class="am-icon-puzzle-piece"></span> 任务列表</a></li>
-                        <li><a href="/activiti/list/running"><span class="am-icon-th"></span> 运行中的流程</a></li>
-                        <li><a href="/activiti/engine/info" target="_blank"><span class="am-icon-calendar"></span> 引擎信息</a>
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="/index" class="nav-link" id="index">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item" >
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list" id="activiti">
+                        <i class="am-icon-table"></i>
+                        <span>流程管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                    </a>
+
+                    <ul class="tpl-left-nav-sub-menu">
+                        <li>
+                            <a th:href="@{/activiti/processes}" id="processes">
+                                <i class="am-icon-angle-right"></i>
+                                <span>流程定义</span>
+                                <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                            </a>
+
+                            <a th:href="@{/activiti/tasks}" id="tasks">
+                                <i class="am-icon-angle-right"></i>
+                                <span>任务列表</span>
+                                <i class="tpl-left-nav-content tpl-badge-success">
+                                    18
+                                </i>
+                            </a>
+
+                            <a th:href="@{/activit/list/running}" id="list">
+                                <i class="am-icon-angle-right"></i>
+                                <span>运行中的流程</span>
+                                <i class="tpl-left-nav-content tpl-badge-primary">
+                                    5
+                                </i>
+                            </a>
+
+
+                            <a th:href="@{/activiti/engine/info}" id="engine">
+                                <i class="am-icon-angle-right"></i>
+                                <span>引擎信息</span>
+
+                            </a>
                         </li>
                     </ul>
                 </li>
 
-                <li shiro:hasPermission="userInfo:add" ><a href="admin-table.html"><span class="am-icon-table"></span> 用户管理</a></li>
+                <li shiro:hasPermission="userInfo:add" class="tpl-left-nav-item" >
+                    <a href="/userinfo" class="nav-link" id="user">
+                        <i class="am-icon-users"></i>
+                        <span>用户管理</span>
+                    </a>
+                </li>
 
-                <li><a href="admin-table.html"><span class="am-icon-table"></span> 权限管理</a></li>
-                <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
-                <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
+                <li class="tpl-left-nav-item">
+                    <a th:href="@{/authority}" id="authority" class="nav-link   ">
+                    <i class="am-icon-gear"></i>
+                    <span>权限管理</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item"><a class="nav-link" href="/logout"><i class="am-icon-sign-out"></i><span >注销</span> </a></li>
             </ul>
 
             <div class="am-panel am-panel-default admin-sidebar-panel">

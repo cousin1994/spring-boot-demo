@@ -39,7 +39,6 @@ public class UserInfoController {
     @ResponseBody
     public Object userInfoList(){
         return  userInfoService.selectAll();
-
     }
 
 

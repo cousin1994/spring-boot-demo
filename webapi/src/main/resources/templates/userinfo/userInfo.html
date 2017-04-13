@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="/layout/layout">
+<html lang="zh" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="/layout/layout">
 <head>
     <meta charset="UTF-8"/>
-    <title>用户查询</title>
+    <title>首页</title>
 </head>
 <body>
+
 <div layout:fragment="content">
-    <div class="admin-content-body">
+
+    <div>
+        <div class="tpl-content-page-title">
+            cousin 管理系统首页
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="/" class="am-icon-home">首页</a></li>
+            <li class="am-active">用户管理</li>
+        </ol>
+
 
     </div>
 </div>

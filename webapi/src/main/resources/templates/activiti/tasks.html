@@ -7,48 +7,56 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="admin-content-body">
-        <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">流程管理</strong> /
-                <small>任务列表</small>
-            </div>
-        </div>
 
-        <div class="am-container">
-            <div class="am-g">
-                <div class="am-u-sm-12">
-                    <form class="am-form am-form-horizontal">
-                        <table class="am-table am-table-striped am-table-hover table-main">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NAME</th>
-                                <th>OPTS</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:if="${#lists.isEmpty(tasks)}">
-                                <td colspan="3">
-                                    No messages
-                                </td>
-                            </tr>
-                            <tr th:each="task : ${tasks}">
+    <div>
+        <div class="tpl-content-page-title">
+            activiti流程管理
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">流程管理</a></li>
+            <li class="am-active">任务列表</li>
+        </ol>
+    </div>
+
+
+
+    <div class="tpl-portlet-components">
+
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <form  role="form" class="am-form">
+                    <table class="am-table am-table-hover am-table-striped table-main">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>OPTS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(tasks)}">
+                            <td colspan="3">
+                                No messages
+                            </td>
+                        </tr>
+                        <tr th:each="task : ${tasks}">
                             <!--/*@thymesVar id="task" type="org.activiti.engine.task.Task"*/-->
-                                <td th:text="${task.id}"></td>
-                                <td th:text="${task.name}"></td>
-                                <td>
-                                    <a th:href="@{'/activiti/task/complete/' + ${task.id}}">完成</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
+                            <td th:text="${task.id}"></td>
+                            <td th:text="${task.name}"></td>
+                            <td>
+                                <a th:href="@{'/activiti/task/complete/' + ${task.id}}">完成</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
+    </div>
+
 
 
     </div>
-</div>
 </body>
 </html>
