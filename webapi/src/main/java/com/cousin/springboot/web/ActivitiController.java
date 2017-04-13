@@ -67,6 +67,11 @@ public class ActivitiController {
     }
 
 
+    /**
+     * 获取activiti系统引擎信息
+     *
+     * @return the map
+     */
     @ResponseBody
     @RequestMapping("/engine/info")
     public Map<String, String> engineProperties() {
@@ -78,7 +83,6 @@ public class ActivitiController {
         ModelAndView mav = new ModelAndView("activiti/processes");
         List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
         mav.addObject("processes", list);
-        mav.addObject("test", "你好");
         return mav;
     }
 
