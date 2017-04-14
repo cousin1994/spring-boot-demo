@@ -3,8 +3,11 @@ package com.cousin.springboot;
 import com.cousin.springboot.model.pojo.User;
 import com.cousin.springboot.service.TaskService;
 import com.cousin.springboot.service.UserService;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +25,7 @@ import java.util.UUID;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppTests {
 
     private Logger logger = LoggerFactory.getLogger(AppTests.class);
@@ -32,10 +36,10 @@ public class AppTests {
     @Resource
     private TaskService taskService;
 
+    private static User user = new User();
 
     @Test
-    public void test_redis(){
-        User user = new User();
+    public void test_redis001(){
         user.setName("cousin");
         user.setCreateTime(new Date());
         user.setPassword("123456");
@@ -45,18 +49,16 @@ public class AppTests {
     }
 
     @Test
-    public void test_redis_find(){
-        logger.info("开始查找");
-        logger.info(userService.findById(4L).toString());
-//        System.out.println(userService.findById(3L));
+    public void test_redis002_find(){
+        logger.info(user.getId().toString());
+        User user1 = userService.findById(user.getId());
+        Assert.assertEquals(user1,user);
     }
 
 
     @Test
-    public void test_redis_del(){
-        logger.info("开始删除");
-        userService.del(4L);
-        logger.info("删除完成");
+    public void test_redis003_del(){
+        userService.del(user.getId());
     }
 
     @Test

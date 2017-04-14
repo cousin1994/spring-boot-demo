@@ -1,6 +1,7 @@
 package com.cousin.springboot.xml;
 
-import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+
 import org.apache.commons.io.IOUtils;
 
 import javax.xml.bind.JAXBContext;

@@ -1,5 +1,8 @@
 package com.cousin.springboot.model.pojo;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -108,5 +111,37 @@ public class User implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return new EqualsBuilder()
+                .append(getId(), user.getId())
+                .append(getUsername(), user.getUsername())
+                .append(getPassword(), user.getPassword())
+                .append(getSalt(), user.getSalt())
+                .append(getEmail(), user.getEmail())
+                .append(getPhone(), user.getPhone())
+                .append(getName(), user.getName())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getId())
+                .append(getUsername())
+                .append(getPassword())
+                .append(getSalt())
+                .append(getEmail())
+                .append(getPhone())
+                .append(getName())
+                .toHashCode();
     }
 }

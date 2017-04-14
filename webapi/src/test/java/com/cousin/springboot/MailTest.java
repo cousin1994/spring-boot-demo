@@ -24,14 +24,6 @@ public class MailTest {
     @Test
     public void test_sendMail() {
 
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom("v-daijc@eshore.cn");
-        message.setTo("773807943@qq.com");
-        message.setSubject("测试邮件（邮件主题）");
-        message.setText("邮件内容");
-
-        mailSender.send(message);
 
 
     }
